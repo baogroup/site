@@ -1,0 +1,1 @@
+Tekstų paruošimas keliomis kalbomis su vieninga struktūra ir aiškia terminija.
