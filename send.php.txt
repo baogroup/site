@@ -1,20 +1,32 @@
 <?php
-if ($_SERVER['REQUEST_METHOD']==='POST'){
-  $name = htmlspecialchars($_POST['name'] ?? '');
-  $email = htmlspecialchars($_POST['email'] ?? '');
-  $message = htmlspecialchars($_POST['message'] ?? '');
-
-  $to = "info@baogroup.eu";
-  $subject = "BaoGroup message";
-
-  $body = "Name: $name\n";
-  $body .= "Email: $email\n\n";
-  $body .= "Message:\n$message\n";
-
-  $headers = "From: $email";
-
-  mail($to,$subject,$body,$headers);
+$lang = $_POST['lang'] ?? 'en';
+if (!in_array($lang, ['en','lt','ru'], true)) {
+  $lang = 'en';
 }
 
-header("Location: index.php?sent=1");
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+  header('Location: index.php?lang=' . $lang);
+  exit;
+}
+
+$name = trim($_POST['name'] ?? '');
+$email = trim($_POST['email'] ?? '');
+$text = trim($_POST['message'] ?? '');
+
+if ($name === '' || $email === '' || $text === '') {
+  header('Location: index.php?lang=' . $lang . '&error=1#contact');
+  exit;
+}
+
+$to = 'info@baogroup.eu';
+$subject = 'BaoGroup website message';
+$body = "Name: $name\nEmail: $email\n\nMessage:\n$text\n";
+
+$ok = mail($to, $subject, $body);
+
+if ($ok) {
+  header('Location: index.php?lang=' . $lang . '&sent=1#contact');
+} else {
+  header('Location: index.php?lang=' . $lang . '&error=1#contact');
+}
 exit;
