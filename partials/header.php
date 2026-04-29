@@ -1,7 +1,6 @@
 <header class="site-header">
   <a class="brand" href="index.php?lang=<?= htmlspecialchars($lang) ?>" aria-label="BaoGroup home">
-    <span class="brand-mark">B</span>
-    <span class="brand-text">BaoGroup</span>
+    <img src="assets/img/baogroup-logo.svg" alt="BaoGroup" style="height:36px">
   </a>
 
   <?php include __DIR__ . '/nav.php'; ?>
