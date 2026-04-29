@@ -73,6 +73,25 @@ function e($value) {
       </div>
     </section>
 
+    <section id="about" class="section-shell about-panel reveal visible">
+      <div class="about-photo">
+        <img src="assets/img/owner.jpg" alt="BaoGroup" onerror="this.style.display='none';this.parentElement.classList.add('no-photo');">
+        <span><?= e($t['about_photo_label'] ?? 'Photo') ?></span>
+      </div>
+      <div class="about-copy">
+        <p class="eyebrow">About</p>
+        <h2><?= e($t['about_title']) ?></h2>
+        <p><?= e($t['about_text_1']) ?></p>
+        <p><?= e($t['about_text_2']) ?></p>
+        <div class="company-card">
+          <strong><?= e($t['company_name']) ?></strong>
+          <span><?= e($t['company_line_1']) ?></span>
+          <span><?= e($t['company_line_2']) ?></span>
+          <span><?= e($t['company_line_3']) ?></span>
+        </div>
+      </div>
+    </section>
+
     <section id="process" class="section-shell split-section reveal visible">
       <div>
         <p class="eyebrow">Workflow</p>
