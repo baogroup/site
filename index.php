@@ -106,6 +106,9 @@ function e($value) {
         <?php if (isset($_GET['sent'])): ?>
           <p class="feedback-note"><?= e($t['sent_ok'] ?? 'Message sent successfully.') ?></p>
         <?php endif; ?>
+        <?php if (isset($_GET['error'])): ?>
+          <p class="feedback-note"><?= e($t['sent_error'] ?? 'Message could not be sent. Please try again later.') ?></p>
+        <?php endif; ?>
       </div>
       <form method="post" action="send.php" class="feedback-form">
         <input name="name" placeholder="<?= e($t['form_name']) ?>" required>
