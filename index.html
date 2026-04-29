@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
-<body>
+<body id="top">
   <div class="bg-grid"></div>
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
@@ -20,12 +20,12 @@
   <main>
     <section class="hero section-shell">
       <div class="hero-copy reveal">
-        <p class="eyebrow" data-txt="content/ru/eyebrow.txt"></p>
-        <h1 data-txt="content/ru/hero-title.txt"></h1>
-        <p class="lead" data-txt="content/ru/hero-lead.txt"></p>
+        <p class="eyebrow" data-txt="content/en/eyebrow.txt"></p>
+        <h1 data-txt="content/en/hero-title.txt"></h1>
+        <p class="lead" data-txt="content/en/hero-lead.txt"></p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#contact">Обсудить проект</a>
-          <a class="btn btn-ghost" href="#services">Посмотреть услуги</a>
+          <a class="btn btn-primary" href="#contact" data-txt="content/en/button-contact.txt"></a>
+          <a class="btn btn-ghost" href="#services" data-txt="content/en/button-services.txt"></a>
         </div>
       </div>
       <div class="hero-panel reveal" aria-label="BaoGroup system preview">
@@ -37,9 +37,9 @@
           <div class="terminal-scan"></div>
         </div>
         <div class="metric-row">
-          <div><strong>TXT</strong><span>контент отдельно</span></div>
-          <div><strong>SEO</strong><span>статьи и структура</span></div>
-          <div><strong>WEB</strong><span>поддержка сайтов</span></div>
+          <div><strong>TXT</strong><span data-txt="content/en/metric-txt.txt"></span></div>
+          <div><strong>SEO</strong><span data-txt="content/en/metric-seo.txt"></span></div>
+          <div><strong>WEB</strong><span data-txt="content/en/metric-web.txt"></span></div>
         </div>
       </div>
     </section>
@@ -47,48 +47,54 @@
     <section id="services" class="section-shell section-block reveal">
       <div class="section-heading">
         <p class="eyebrow">Services</p>
-        <h2>Что можно подключить</h2>
-        <p>Сайт собран так, чтобы каждую услугу можно было менять отдельно, без ковыряния в теме WordPress.</p>
+        <h2 data-txt="content/en/services-title.txt"></h2>
+        <p data-txt="content/en/services-lead.txt"></p>
       </div>
       <div class="cards">
-        <article class="card"><h3>Поддержка сайтов</h3><p data-txt="content/ru/service-support.txt"></p></article>
-        <article class="card"><h3>SEO-статьи</h3><p data-txt="content/ru/service-articles.txt"></p></article>
-        <article class="card"><h3>Мультиязычный контент</h3><p data-txt="content/ru/service-languages.txt"></p></article>
+        <article class="card"><h3 data-txt="content/en/service-support-title.txt"></h3><p data-txt="content/en/service-support.txt"></p></article>
+        <article class="card"><h3 data-txt="content/en/service-articles-title.txt"></h3><p data-txt="content/en/service-articles.txt"></p></article>
+        <article class="card"><h3 data-txt="content/en/service-languages-title.txt"></h3><p data-txt="content/en/service-languages.txt"></p></article>
       </div>
     </section>
 
     <section id="process" class="section-shell split-section reveal">
       <div>
         <p class="eyebrow">Workflow</p>
-        <h2>Без звонков, без хаоса, всё письменно</h2>
+        <h2 data-txt="content/en/workflow-title.txt"></h2>
       </div>
       <div class="steps">
-        <div class="step"><span>01</span><p>Клиент описывает задачу письменно.</p></div>
-        <div class="step"><span>02</span><p>Формируется понятный план работ и список материалов.</p></div>
-        <div class="step"><span>03</span><p>Сайт, статьи или правки ведутся аккуратно и прозрачно.</p></div>
+        <div class="step"><span>01</span><p data-txt="content/en/workflow-step-1.txt"></p></div>
+        <div class="step"><span>02</span><p data-txt="content/en/workflow-step-2.txt"></p></div>
+        <div class="step"><span>03</span><p data-txt="content/en/workflow-step-3.txt"></p></div>
       </div>
     </section>
 
     <section id="prices" class="section-shell section-block reveal">
       <div class="section-heading">
         <p class="eyebrow">Packages</p>
-        <h2>Пакеты можно оформить позже</h2>
-        <p>Сейчас это стартовая структура. Цены, состав услуг и языки лежат отдельно в TXT-файлах.</p>
+        <h2 data-txt="content/en/packages-title.txt"></h2>
+        <p data-txt="content/en/packages-lead.txt"></p>
       </div>
       <div class="pricing">
-        <div class="price-card"><h3>Start</h3><strong>от 19,99 €</strong><p>Минимальная проверка, рекомендации, базовая поддержка.</p></div>
-        <div class="price-card featured"><h3>Content</h3><strong>2 статьи / неделю</strong><p>SEO-оптимизированные статьи на 3, 6 или 12 месяцев.</p></div>
-        <div class="price-card"><h3>Care</h3><strong>по задаче</strong><p>Обновления, структура, тексты, мелкие технические правки.</p></div>
+        <div class="price-card"><h3>Start</h3><strong>from 19.99 €</strong><p data-txt="content/en/package-start.txt"></p></div>
+        <div class="price-card featured"><h3>Content</h3><strong>2 articles / week</strong><p data-txt="content/en/package-content.txt"></p></div>
+        <div class="price-card"><h3>Care</h3><strong>custom</strong><p data-txt="content/en/package-care.txt"></p></div>
       </div>
     </section>
 
     <section id="contact" class="section-shell contact-panel reveal">
       <div>
         <p class="eyebrow">Contact</p>
-        <h2>Связь только письменно</h2>
-        <p data-txt="content/ru/contact.txt"></p>
+        <h2 data-txt="content/en/contact-title.txt"></h2>
+        <p data-txt="content/en/contact.txt"></p>
       </div>
-      <a class="btn btn-primary" href="mailto:info@baogroup.eu">info@baogroup.eu</a>
+      <form id="feedbackForm" class="feedback-form">
+        <input name="name" type="text" data-placeholder="content/en/form-name.txt" aria-label="Name" required>
+        <input name="email" type="email" data-placeholder="content/en/form-email.txt" aria-label="Email" required>
+        <textarea name="message" data-placeholder="content/en/form-message.txt" aria-label="Message" required></textarea>
+        <button class="btn btn-primary" type="submit" data-txt="content/en/form-button.txt"></button>
+        <p class="feedback-note" data-txt="content/en/form-note.txt"></p>
+      </form>
     </section>
   </main>
 
