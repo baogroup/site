@@ -31,6 +31,10 @@ function getLanguage() {
   return SITE.defaultLang;
 }
 
+function localizedPath(originalPath, lang) {
+  return originalPath.replace(/content\/(en|lt|ru)\//, `content/${lang}/`);
+}
+
 async function loadLanguage(lang) {
   const safeLang = SITE.supportedLangs.includes(lang) ? lang : SITE.defaultLang;
   document.documentElement.lang = safeLang;
@@ -38,12 +42,21 @@ async function loadLanguage(lang) {
 
   const textNodes = [...document.querySelectorAll("[data-txt]")];
   await Promise.all(textNodes.map(async node => {
-    const originalPath = node.getAttribute("data-txt");
-    const localizedPath = originalPath.replace(/content\/(en|lt|ru)\//, `content/${safeLang}/`);
+    const path = localizedPath(node.getAttribute("data-txt"), safeLang);
     try {
-      node.textContent = await fetchText(localizedPath);
+      node.textContent = await fetchText(path);
     } catch (error) {
       node.textContent = "";
+      console.warn(error.message);
+    }
+  }));
+
+  const placeholderNodes = [...document.querySelectorAll("[data-placeholder]")];
+  await Promise.all(placeholderNodes.map(async node => {
+    const path = localizedPath(node.getAttribute("data-placeholder"), safeLang);
+    try {
+      node.setAttribute("placeholder", await fetchText(path));
+    } catch (error) {
       console.warn(error.message);
     }
   }));
