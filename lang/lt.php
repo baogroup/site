@@ -133,7 +133,7 @@ return [
     'El. parduotuvė',
     'Rezervacijų sistema',
     'Klientų prisijungimai',
-    'SEO продвижение',
+    'SEO optimizavimas',
     'Reklamos kampanijos',
     'Nuolatinis turinio pildymas'
   ],
