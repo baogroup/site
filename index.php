@@ -24,6 +24,7 @@ function e($value) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/services.css">
 </head>
 <body id="top">
   <div class="bg-grid"></div>
@@ -48,28 +49,44 @@ function e($value) {
         <div class="terminal-card">
           <div class="terminal-top"><span></span><span></span><span></span></div>
           <div class="terminal-line"><b>bao.system</b> / site-care</div>
-          <div class="terminal-line muted">content: php-based</div>
-          <div class="terminal-line muted">status: fast / clean / multilingual</div>
+          <div class="terminal-line muted">website: one-page / PHP</div>
+          <div class="terminal-line muted">seo: audit / content / structure</div>
+          <div class="terminal-line muted">support: written workflow</div>
           <div class="terminal-scan"></div>
         </div>
         <div class="metric-row">
-          <div><strong>PHP</strong><span><?= e($t['metric_txt'] ?? '') ?></span></div>
+          <div><strong>99 €</strong><span><?= e($t['metric_web'] ?? '') ?></span></div>
+          <div><strong>19.99 €</strong><span><?= e($t['metric_txt'] ?? '') ?></span></div>
           <div><strong>SEO</strong><span><?= e($t['metric_seo'] ?? '') ?></span></div>
-          <div><strong>WEB</strong><span><?= e($t['metric_web'] ?? '') ?></span></div>
         </div>
       </div>
     </section>
 
     <section id="services" class="section-shell section-block reveal visible">
       <div class="section-heading">
-        <p class="eyebrow">Services</p>
+        <p class="eyebrow"><?= e($t['services_eyebrow'] ?? 'Services') ?></p>
         <h2><?= e($t['services_title']) ?></h2>
         <p><?= e($t['services_lead'] ?? '') ?></p>
       </div>
-      <div class="cards">
-        <article class="card"><h3><?= e($t['service_support_title'] ?? '') ?></h3><p><?= e($t['service_support'] ?? '') ?></p></article>
-        <article class="card"><h3><?= e($t['service_articles_title'] ?? '') ?></h3><p><?= e($t['service_articles'] ?? '') ?></p></article>
-        <article class="card"><h3><?= e($t['service_languages_title'] ?? '') ?></h3><p><?= e($t['service_languages'] ?? '') ?></p></article>
+      <div class="cards service-grid">
+        <?php foreach (($t['service_cards'] ?? []) as $card): ?>
+          <article class="card service-card">
+            <div class="card-price"><?= e($card['price'] ?? '') ?></div>
+            <h3><?= e($card['title'] ?? '') ?></h3>
+            <p><?= e($card['text'] ?? '') ?></p>
+            <?php if (!empty($card['items']) && is_array($card['items'])): ?>
+              <ul class="feature-list">
+                <?php foreach ($card['items'] as $item): ?>
+                  <li><?= e($item) ?></li>
+                <?php endforeach; ?>
+              </ul>
+            <?php endif; ?>
+          </article>
+        <?php endforeach; ?>
+      </div>
+      <div class="section-note">
+        <strong><?= e($t['service_note_title'] ?? '') ?></strong>
+        <span><?= e($t['service_note_text'] ?? '') ?></span>
       </div>
     </section>
 
@@ -79,7 +96,7 @@ function e($value) {
         <span><?= e($t['about_photo_label'] ?? 'Photo') ?></span>
       </div>
       <div class="about-copy">
-        <p class="eyebrow">About</p>
+        <p class="eyebrow"><?= e($t['about_eyebrow'] ?? 'About') ?></p>
         <h2><?= e($t['about_title']) ?></h2>
         <p><?= e($t['about_text_1']) ?></p>
         <p><?= e($t['about_text_2']) ?></p>
@@ -94,7 +111,7 @@ function e($value) {
 
     <section id="process" class="section-shell split-section reveal visible">
       <div>
-        <p class="eyebrow">Workflow</p>
+        <p class="eyebrow"><?= e($t['workflow_eyebrow'] ?? 'Workflow') ?></p>
         <h2><?= e($t['workflow_title']) ?></h2>
       </div>
       <div class="steps">
@@ -106,20 +123,46 @@ function e($value) {
 
     <section id="prices" class="section-shell section-block reveal visible">
       <div class="section-heading">
-        <p class="eyebrow">Packages</p>
+        <p class="eyebrow"><?= e($t['packages_eyebrow'] ?? 'Prices') ?></p>
         <h2><?= e($t['packages_title']) ?></h2>
         <p><?= e($t['packages_lead'] ?? '') ?></p>
       </div>
-      <div class="pricing">
-        <div class="price-card"><h3>Start</h3><strong>from 19.99 €</strong><p><?= e($t['package_start'] ?? '') ?></p></div>
-        <div class="price-card featured"><h3>Content</h3><strong>2 articles / week</strong><p><?= e($t['package_content'] ?? '') ?></p></div>
-        <div class="price-card"><h3>Care</h3><strong>custom</strong><p><?= e($t['package_care'] ?? '') ?></p></div>
+      <div class="pricing pricing-expanded">
+        <?php foreach (($t['price_cards'] ?? []) as $package): ?>
+          <div class="price-card <?= !empty($package['featured']) ? 'featured' : '' ?>">
+            <?php if (!empty($package['badge'])): ?><span class="badge"><?= e($package['badge']) ?></span><?php endif; ?>
+            <h3><?= e($package['title'] ?? '') ?></h3>
+            <strong><?= e($package['price'] ?? '') ?></strong>
+            <p><?= e($package['text'] ?? '') ?></p>
+            <?php if (!empty($package['items']) && is_array($package['items'])): ?>
+              <ul class="feature-list compact">
+                <?php foreach ($package['items'] as $item): ?>
+                  <li><?= e($item) ?></li>
+                <?php endforeach; ?>
+              </ul>
+            <?php endif; ?>
+          </div>
+        <?php endforeach; ?>
       </div>
+    </section>
+
+    <section class="section-shell section-block reveal visible">
+      <div class="section-heading">
+        <p class="eyebrow"><?= e($t['limits_eyebrow'] ?? 'Important') ?></p>
+        <h2><?= e($t['limits_title'] ?? '') ?></h2>
+        <p><?= e($t['limits_lead'] ?? '') ?></p>
+      </div>
+      <div class="limits-grid">
+        <?php foreach (($t['limits_items'] ?? []) as $item): ?>
+          <div class="limit-item"><?= e($item) ?></div>
+        <?php endforeach; ?>
+      </div>
+      <p class="fine-print"><?= e($t['limits_note'] ?? '') ?></p>
     </section>
 
     <section id="contact" class="section-shell contact-panel reveal visible">
       <div>
-        <p class="eyebrow">Contact</p>
+        <p class="eyebrow"><?= e($t['contact_eyebrow'] ?? 'Contact') ?></p>
         <h2><?= e($t['contact_title']) ?></h2>
         <p><?= e($t['contact'] ?? '') ?></p>
         <?php if (isset($_GET['sent'])): ?>
