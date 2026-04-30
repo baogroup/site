@@ -12,6 +12,8 @@ $t = array_merge($base, $current);
 function e($value) {
   return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
 }
+
+$services = $t['service_cards'] ?? [];
 ?>
 <!DOCTYPE html>
 <html lang="<?= e($lang) ?>">
@@ -24,7 +26,8 @@ function e($value) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/services.css">
+  <link rel="stylesheet" href="assets/css/interactive.css">
+  <link rel="stylesheet" href="assets/css/fixes.css?v=20260430-2">
 </head>
 <body id="top">
   <div class="bg-grid"></div>
@@ -49,14 +52,14 @@ function e($value) {
         <div class="terminal-card">
           <div class="terminal-top"><span></span><span></span><span></span></div>
           <div class="terminal-line"><b>bao.system</b> / site-care</div>
-          <div class="terminal-line muted">website: one-page / PHP</div>
-          <div class="terminal-line muted">seo: audit / content / structure</div>
+          <div class="terminal-line muted">website: domain / hosting / email</div>
+          <div class="terminal-line muted">seo: audit / articles / structure</div>
           <div class="terminal-line muted">support: written workflow</div>
           <div class="terminal-scan"></div>
         </div>
         <div class="metric-row">
-          <div><strong>99 €</strong><span><?= e($t['metric_web'] ?? '') ?></span></div>
-          <div><strong>19.99 €</strong><span><?= e($t['metric_txt'] ?? '') ?></span></div>
+          <div><strong>249 €</strong><span><?= e($t['metric_web'] ?? '') ?></span></div>
+          <div><strong>69 €</strong><span><?= e($t['metric_txt'] ?? '') ?></span></div>
           <div><strong>SEO</strong><span><?= e($t['metric_seo'] ?? '') ?></span></div>
         </div>
       </div>
@@ -69,18 +72,20 @@ function e($value) {
         <p><?= e($t['services_lead'] ?? '') ?></p>
       </div>
       <div class="cards service-grid">
-        <?php foreach (($t['service_cards'] ?? []) as $card): ?>
-          <article class="card service-card">
+        <?php foreach ($services as $i => $card): ?>
+          <article class="card service-card service-card-clickable" tabindex="0" role="button" data-service-index="<?= (int)$i ?>" aria-label="<?= e(($t['modal_open_prefix'] ?? 'Open service') . ': ' . ($card['title'] ?? '')) ?>">
+            <div class="service-icon"><?= e($card['icon'] ?? '•') ?></div>
             <div class="card-price"><?= e($card['price'] ?? '') ?></div>
             <h3><?= e($card['title'] ?? '') ?></h3>
             <p><?= e($card['text'] ?? '') ?></p>
             <?php if (!empty($card['items']) && is_array($card['items'])): ?>
               <ul class="feature-list">
-                <?php foreach ($card['items'] as $item): ?>
+                <?php foreach (array_slice($card['items'], 0, 4) as $item): ?>
                   <li><?= e($item) ?></li>
                 <?php endforeach; ?>
               </ul>
             <?php endif; ?>
+            <span class="service-more"><?= e($t['service_more'] ?? 'Details') ?></span>
           </article>
         <?php endforeach; ?>
       </div>
@@ -121,31 +126,6 @@ function e($value) {
       </div>
     </section>
 
-    <section id="prices" class="section-shell section-block reveal visible">
-      <div class="section-heading">
-        <p class="eyebrow"><?= e($t['packages_eyebrow'] ?? 'Prices') ?></p>
-        <h2><?= e($t['packages_title']) ?></h2>
-        <p><?= e($t['packages_lead'] ?? '') ?></p>
-      </div>
-      <div class="pricing pricing-expanded">
-        <?php foreach (($t['price_cards'] ?? []) as $package): ?>
-          <div class="price-card <?= !empty($package['featured']) ? 'featured' : '' ?>">
-            <?php if (!empty($package['badge'])): ?><span class="badge"><?= e($package['badge']) ?></span><?php endif; ?>
-            <h3><?= e($package['title'] ?? '') ?></h3>
-            <strong><?= e($package['price'] ?? '') ?></strong>
-            <p><?= e($package['text'] ?? '') ?></p>
-            <?php if (!empty($package['items']) && is_array($package['items'])): ?>
-              <ul class="feature-list compact">
-                <?php foreach ($package['items'] as $item): ?>
-                  <li><?= e($item) ?></li>
-                <?php endforeach; ?>
-              </ul>
-            <?php endif; ?>
-          </div>
-        <?php endforeach; ?>
-      </div>
-    </section>
-
     <section class="section-shell section-block reveal visible">
       <div class="section-heading">
         <p class="eyebrow"><?= e($t['limits_eyebrow'] ?? 'Important') ?></p>
@@ -166,22 +146,55 @@ function e($value) {
         <h2><?= e($t['contact_title']) ?></h2>
         <p><?= e($t['contact'] ?? '') ?></p>
         <?php if (isset($_GET['sent'])): ?>
-          <p class="feedback-note"><?= e($t['sent_ok'] ?? 'Message sent successfully.') ?></p>
+          <p class="feedback-note feedback-success"><?= e($t['sent_ok'] ?? 'Message sent successfully.') ?></p>
         <?php endif; ?>
         <?php if (isset($_GET['error'])): ?>
-          <p class="feedback-note"><?= e($t['sent_error'] ?? 'Message could not be sent. Please try again later.') ?></p>
+          <p class="feedback-note feedback-error"><?= e($t['sent_error'] ?? 'Message could not be sent. Please try again later.') ?></p>
         <?php endif; ?>
       </div>
       <form method="post" action="send.php" class="feedback-form">
         <input name="name" placeholder="<?= e($t['form_name']) ?>" required>
         <input name="email" type="email" placeholder="<?= e($t['form_email']) ?>" required>
+        <select name="service" id="serviceSelect" required>
+          <option value=""><?= e($t['form_service_placeholder'] ?? 'Choose service') ?></option>
+          <?php foreach ($services as $card): ?>
+            <option value="<?= e(($card['title'] ?? '') . ' — ' . ($card['price'] ?? '')) ?>"><?= e(($card['title'] ?? '') . ' — ' . ($card['price'] ?? '')) ?></option>
+          <?php endforeach; ?>
+        </select>
         <textarea name="message" placeholder="<?= e($t['form_message']) ?>" required></textarea>
+        <input class="honeypot" type="text" name="website" tabindex="-1" autocomplete="off">
         <input type="hidden" name="lang" value="<?= e($lang) ?>">
         <button type="submit" class="btn btn-primary"><?= e($t['form_button']) ?></button>
         <p class="feedback-note"><?= e($t['form_note'] ?? '') ?></p>
       </form>
     </section>
   </main>
+
+  <div class="service-modal" id="serviceModal" aria-hidden="true">
+    <div class="service-modal-backdrop" data-close-modal></div>
+    <div class="service-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="serviceModalTitle">
+      <button class="service-modal-close" type="button" data-close-modal aria-label="Close">×</button>
+      <h2 id="serviceModalTitle"></h2>
+      <div class="service-modal-price" id="serviceModalPrice"></div>
+      <p class="service-modal-text" id="serviceModalText"></p>
+      <div class="service-modal-columns">
+        <div>
+          <h3><?= e($t['modal_included'] ?? 'Included') ?></h3>
+          <ul id="serviceModalIncluded"></ul>
+        </div>
+        <div>
+          <h3><?= e($t['modal_not_included'] ?? 'Not included') ?></h3>
+          <ul id="serviceModalExcluded"></ul>
+        </div>
+      </div>
+      <button class="btn btn-primary service-modal-order" type="button" id="serviceModalOrder"><?= e($t['modal_order'] ?? 'Order this service') ?></button>
+    </div>
+  </div>
+
+  <script>
+    window.BAO_SERVICES = <?= json_encode($services, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
+  </script>
+  <script src="assets/js/app.js?v=20260430-2"></script>
 
   <?php include __DIR__ . '/partials/footer.php'; ?>
 </body>
