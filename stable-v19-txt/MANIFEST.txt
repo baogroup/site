@@ -1,0 +1,43 @@
+BaoGroup stable v19 manifest
+
+Source archive used in this chat:
+baogroup-site-v19-counter-buttons-portfolio-FIXED.zip
+
+Expected server structure:
+.htaccess
+index.php
+send.php
+partials/header.php
+partials/nav.php
+partials/footer.php
+lang/en.php
+lang/lt.php
+lang/ru.php
+lang/service-data.php
+assets/css/style.css
+assets/js/app.js
+assets/img/baogroup-logo.svg
+assets/img/owner.jpg
+counter/track.js
+counter/track.php
+counter/lib.php
+counter/badge.php
+counter/stats.php
+counter/data/.htaccess
+counter/data/index.html
+
+Text archive naming rule:
+Every source file may be stored with .txt appended to its real server name.
+Examples:
+index.php.txt becomes index.php
+style.css.txt becomes style.css
+app.js.txt becomes app.js
+baogroup-logo.svg.txt becomes baogroup-logo.svg
+.htaccess.txt becomes .htaccess
+
+Files intentionally not rewritten from chat:
+assets/img/owner.jpg
+
+Old files to remove from server build if present:
+assets/css/interactive.css
+assets/css/fixes.css
