@@ -1,0 +1,35 @@
+BaoGroup stable v19 build rules
+
+Goal:
+Build a normal server ZIP from text source files without relying on memory.
+
+Rules:
+1. Text source files are stored with .txt added to the real file name.
+2. During server build, remove only the final .txt suffix.
+3. Do not rename folders.
+4. Keep UTF-8 encoding.
+5. Keep assets/img/owner.jpg as a binary file if it already exists.
+6. If owner.jpg is missing, the site still works because the about photo block has a fallback.
+7. Remove obsolete CSS files from server package if they exist:
+   assets/css/interactive.css
+   assets/css/fixes.css
+8. Server package must use index.php as the main entry file.
+9. Do not use index.html as the primary site file.
+10. The site is designed for a normal PHP hosting environment.
+
+Build command idea on a local machine:
+Copy stable text files into a clean folder, remove the last .txt suffix from every file, add owner.jpg if needed, then ZIP the folder.
+
+Important:
+The stable v19 index should load only:
+assets/css/style.css
+assets/js/app.js
+counter/track.js
+
+The stable v19 website includes:
+- multilingual PHP routing by ?lang=en / ?lang=lt / ?lang=ru
+- separate partials for header, nav and footer
+- language files in lang folder
+- service data file
+- contact form send handler
+- local lightweight counter module
